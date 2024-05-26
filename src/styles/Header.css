@@ -1,0 +1,25 @@
+header{
+    display:flex;
+    padding: 20px; 
+    background-color: #FF7043;
+    justify-content: space-between;
+    align-items: center;
+
+    #headerBranding {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+    }
+    nav {
+        * {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        *:hover{
+            color: #FFEB3B
+        }
+    }
+}
+
