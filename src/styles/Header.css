@@ -1,25 +1,35 @@
-header{
-    display:flex;
-    padding: 20px; 
+header {
+    display: flex;
+    padding: 0 20px;
+    height: 80px;
     background-color: #FF7043;
     justify-content: space-between;
     align-items: center;
-
-    #headerBranding {
-        font-size: 24px;
-        font-weight: bold;
-        color: white;
-    }
-    nav {
-        * {
-            margin: 0 15px;
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        *:hover{
-            color: #FFEB3B
-        }
-    }
 }
 
+#headerBranding {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+nav a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease, padding 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+nav a:hover {
+    background-color: white;
+    color: #FF7043;
+    padding: 5px 10px;
+}
+
+nav a:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
