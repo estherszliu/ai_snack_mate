@@ -4,7 +4,7 @@
 *  Home Page (/)
     Introduction: Brief introduction to the application and its features.
     Navigation: Links to other pages (e.g., Recipe Generator, About Me).
-
+![alt text](image.png)
 * Recipe Page (/recipe)
     Input Form: Allows users to type in their recipe idea and the number of people.
     Submit Button: Triggers the recipe generation process.
