@@ -7,8 +7,9 @@ export default function Header() {
             <div id="headerBranding">AI Snack Mate</div>
             <nav id="headerNavbar">
                 <NavLink to={"/"}>Home</NavLink>
-                <NavLink to={"/recipe"}>Recipes</NavLink>
+                <NavLink to={"/recipe"}>Recipes</NavLink>    
                 <NavLink to={"/recipeideas"}>Recipe Ideas</NavLink>
+                <NavLink to={"/recipe/saved"}>Saved Recipes</NavLink>
                 <NavLink to={"/about"}>About</NavLink>
             </nav>
         </header>

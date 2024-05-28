@@ -1,6 +1,8 @@
 import axios from "axios";
 import "../styles/RecipePage.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { RecipeGlobalDataContext, RecipeGlobalDispatchContext } from "../contexts/recipeDataContext";
+import RecipeDetails from  "../components/recipeTemplate";
 
 const mockApiResponse = {
     recipe_name: "Chicken Thai Green Curry",
@@ -50,7 +52,9 @@ export default function RecipePage(){
     const [recipeName, setRecipeName] = useState("");
     const [maxIngredients, setMaxIngredients] = useState("");
     const [maxSteps, setMaxSteps] = useState("");
-    const [generatedRecipe, setGeneratedRecipe] = useState("");
+    const [generatedRecipe, setGeneratedRecipe] = useState(null);
+    const recipes = useContext(RecipeGlobalDataContext);
+    const addRecipe = useContext(RecipeGlobalDispatchContext)
 
 
     const handleGenerateRecipe = async () => {
@@ -73,6 +77,10 @@ export default function RecipePage(){
             // Parsing the mock response text
             const generatedRecipe = response.data.choices[0].text;
             setGeneratedRecipe(JSON.parse(generatedRecipe));
+
+            // Use context to update the global recipe list
+            addRecipe(prevRecipes => [...prevRecipes, generatedRecipe]);
+            
         } catch (error) {
             console.error("Error generating recipe:", error);
         }
@@ -101,43 +109,7 @@ export default function RecipePage(){
                 onChange={(e) => setMaxSteps(e.target.value)}
             />
             <button onClick={handleGenerateRecipe}> Generate Recipe</button>
-             {generatedRecipe && (
-                <div className="recipeDetails">
-                    <h2 class="recipe_name">{generatedRecipe.recipe_name}</h2>
-                    <p>Serves: {generatedRecipe.serves}</p>
-                    <p>Serving size: {generatedRecipe.serving_size}</p>
-                    <h3>Ingredients:</h3>
-                    <ul>
-                        {generatedRecipe.ingredients.map((ingredient, index) => (
-                            <li key={index}>{ingredient.name}: {ingredient.quantity}</li>
-                        ))}
-                    </ul>
-                    <h3>Steps:</h3>
-                    <ol>
-                        {generatedRecipe.steps.map((step, index) => (
-                            <li key={index}>{step.step}</li>
-                        ))}
-                    </ol>
-                    <h3>Nutrition Information (per serving):</h3>
-                    <ul>
-                        <li>Calories: {generatedRecipe.nutrition.per_serving.calories}</li>
-                        <li>Protein: {generatedRecipe.nutrition.per_serving.protein}</li>
-                        <li>Fat: {generatedRecipe.nutrition.per_serving.fat}</li>
-                        <li>Carbohydrates: {generatedRecipe.nutrition.per_serving.carbohydrates}</li>
-                        <li>Fiber: {generatedRecipe.nutrition.per_serving.fiber}</li>
-                        <li>Sugar: {generatedRecipe.nutrition.per_serving.sugar}</li>
-                    </ul>
-                    <h3>Nutrition Information (per 100g):</h3>
-                    <ul>
-                        <li>Calories: {generatedRecipe.nutrition.per_100g.calories}</li>
-                        <li>Protein: {generatedRecipe.nutrition.per_100g.protein}</li>
-                        <li>Fat: {generatedRecipe.nutrition.per_100g.fat}</li>
-                        <li>Carbohydrates: {generatedRecipe.nutrition.per_100g.carbohydrates}</li>
-                        <li>Fiber: {generatedRecipe.nutrition.per_100g.fiber}</li>
-                        <li>Sugar: {generatedRecipe.nutrition.per_100g.sugar}</li>
-                    </ul>
-                </div>
-            )}
+            {generatedRecipe && <RecipeDetails recipe={generatedRecipe} />}
         </div>
     )
 
