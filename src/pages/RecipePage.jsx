@@ -58,24 +58,72 @@ export default function RecipePage(){
 
 
     const handleGenerateRecipe = async () => {
-        const prompt = `Generate a JSON formatted recipe for ${recipeName} with maximum ${maxIngredients} ingredients and ${maxSteps} steps, including detailed nutritional information per serving and per 100g.`      
+        const prompt = `Generate a JSON formatted recipe for \${recipeName} with maximum \${maxIngredients} ingredients and \${maxSteps} steps, including detailed nutritional information per serving and per 100g. The JSON should have the following fields and structure:
+
+        {
+            "recipe_name": "<Recipe Name>",
+            "serves": <Number of Servings>,
+            "serving_size": "<Serving Size>",
+            "ingredients": [
+                { "name": "<Ingredient Name>", "quantity": "<Quantity>" }
+                // repeat for each ingredient
+            ],
+            "steps": [
+                { "number": <Step Number>, "step": "<Step Description>" }
+                // repeat for each step
+            ],
+            "nutrition": {
+                "per_serving": {
+                    "calories": <Calories per Serving>,
+                    "protein": "<Protein per Serving>",
+                    "fat": "<Fat per Serving>",
+                    "carbohydrates": "<Carbohydrates per Serving>",
+                    "fiber": "<Fiber per Serving>",
+                    "sugar": "<Sugar per Serving>"
+                },
+                "per_100g": {
+                    "calories": <Calories per 100g>,
+                    "protein": "<Protein per 100g>",
+                    "fat": "<Fat per 100g>",
+                    "carbohydrates": "<Carbohydrates per 100g>",
+                    "fiber": "<Fiber per 100g>",
+                    "sugar": "<Sugar per 100g>"
+                }
+            }
+        }`;      
         try {
             // Simulating an API response using mock data
-            const response = {
-                data: {
-                    choices: [
-                        {
-                            text: JSON.stringify(mockApiResponse)
-                        }
-                    ]
+            // const response = {
+            //     data: {
+            //         choices: [
+            //             {
+            //                 text: JSON.stringify(mockApiResponse)
+            //             }
+            //         ]
+            //     }
+            // };
+            
+            const response = await axios.post(
+                "https://api.openai.com/v1/chat/completions",
+                {
+                    model: "gpt-3.5-turbo",
+                    messages: [{ role: "user", content: prompt }],
+                    max_tokens: 1000
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`
+                    }
                 }
-            };
+            );
+
     
             // Simulating async behavior
             await new Promise(resolve => setTimeout(resolve, 1000));
     
             // Parsing the mock response text
-            const generatedRecipe = response.data.choices[0].text;
+            const generatedRecipe = response.data.choices[0].message.content;
             setGeneratedRecipe(JSON.parse(generatedRecipe));
 
             // Use context to update the global recipe list

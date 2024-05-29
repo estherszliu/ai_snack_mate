@@ -3,6 +3,8 @@ import Template from "./pages/_TemplatePage";
 import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
 import RecipeSavedPage from "./pages/RecipeSavedPage";
+import ReicipeIdeasPage from "./pages/RecipeIdeasPage";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
@@ -11,8 +13,8 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="recipe" element={<RecipePage />}/>
           <Route path="recipe/saved" element={<RecipeSavedPage />}/>
-          {/* <Route path="recipeideas" element={<recipeIdeas />} /> */}
-          {/* <Route path="about" element={<about />}/>  */}
+          <Route path="recipeideas" element={<ReicipeIdeasPage />} />
+          <Route path="about" element={<AboutPage />}/> 
         </Route>
       </Routes>
   );
