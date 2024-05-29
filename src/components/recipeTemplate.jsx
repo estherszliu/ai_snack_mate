@@ -3,7 +3,7 @@ export default function RecipeDetails({ recipe }) {
     if (!recipe) return null;  // Render nothing if no recipe is provided
     
     return (
-        <div className="recipeDetails">
+        <div id="recipeDetails">
             <h2 className="recipe_name">{recipe.recipe_name}</h2>
             <p>Serves: {recipe.serves}</p>
             <p>Serving size: {recipe.serving_size}</p>

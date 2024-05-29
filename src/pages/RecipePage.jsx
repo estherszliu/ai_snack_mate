@@ -79,37 +79,49 @@ export default function RecipePage(){
             setGeneratedRecipe(JSON.parse(generatedRecipe));
 
             // Use context to update the global recipe list
-            addRecipe(prevRecipes => [...prevRecipes, generatedRecipe]);
+            // addRecipe(prevRecipes => [...prevRecipes, generatedRecipe]);
             
         } catch (error) {
             console.error("Error generating recipe:", error);
         }
     };
 
-
+    const handelSaveRecipe =() => {
+        if (generatedRecipe) {
+            addRecipe(prevRecipes => [...prevRecipes, generatedRecipe]);
+        } else {
+            console.log("No recipe generated to save!");
+        }
+    };
+            
 
     return(
         <div id="recipePageContainer">
-            <div className="inputGroup">Recipe name:</div>
-            <input 
-                id="recipeInput"
-                value={recipeName}
-                onChange={(e) => setRecipeName(e.target.value)}
-            />
-            <div className="inputGroup">Maximum of ingredients:</div>
-            <input 
-                id="ingredientNumInput"
-                value={maxIngredients}
-                onChange={(e) => setMaxIngredients(e.target.value)}
-            />
-            <div className="inputGroup">Maximum of step: </div>
-            <input 
-                id="stepsNumInput"
-                value={maxSteps}
-                onChange={(e) => setMaxSteps(e.target.value)}
-            />
-            <button onClick={handleGenerateRecipe}> Generate Recipe</button>
-            {generatedRecipe && <RecipeDetails recipe={generatedRecipe} />}
+            <div id="recipeContentContainer">
+                <div className="inputGroup">Recipe name</div>
+                <input 
+                    id="recipeInput"
+                    value={recipeName}
+                    onChange={(e) => setRecipeName(e.target.value)}
+                />
+                <div className="inputGroup">Maximum of ingredients</div>
+                <input 
+                    id="ingredientNumInput"
+                    value={maxIngredients}
+                    onChange={(e) => setMaxIngredients(e.target.value)}
+                />
+                <div className="inputGroup">Maximum of step </div>
+                <input 
+                    id="stepsNumInput"
+                    value={maxSteps}
+                    onChange={(e) => setMaxSteps(e.target.value)}
+                />
+                <button id="generatbnt" onClick={handleGenerateRecipe}> Generate Recipe </button>
+                {generatedRecipe && (
+                    <button onClick={handelSaveRecipe}>Save Recipe</button>
+                )}
+                {generatedRecipe && <RecipeDetails recipe={generatedRecipe} />}
+            </div>
         </div>
     )
 

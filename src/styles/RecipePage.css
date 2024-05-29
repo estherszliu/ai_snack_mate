@@ -1,4 +1,13 @@
 #recipePageContainer{
+
+    border: 1px solid green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+#recipeContentContainer{
     color: #333;
     background-color: #f4f4f9;
     /* display: flex; */
@@ -14,10 +23,13 @@
     padding: 20px;
     border-radius: 8px;
     max-width: 800px;
-    margin: auto; 
+    margin: 30px; 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .inputGroup {
-    margin-bottom: 10px;
+    margin-top: 20px;
     font-weight: bold;
 }
 
@@ -26,7 +38,7 @@ input {
     margin-top: 5px;
     width: 100%;
     box-sizing: border-box;
-    border: 2px solid #ccc;
+    border: 2px solid #aaa;
     border-radius: 4px;
 }
 
@@ -39,9 +51,14 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 20px 0;
+    margin: 30px 30px 30px 0px;
     cursor: pointer;
     border-radius: 4px;
+    max-width: 240px;
+}
+
+button:hover {
+    background-color: #3C9F40;
 }
 
 .recipeDetails {

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { RecipeGlobalDataContext } from "../contexts/recipeDataContext";
 import RecipeDetails from "../components/recipeTemplate";
+import "../styles/RecipeSavedPage.css";
 
 
 export default function RecipeSavedPage(){
@@ -13,16 +14,15 @@ export default function RecipeSavedPage(){
 
     return (
 
-        <div>
-            {/* list of recipes */}
-            <h1>Local saved Recipe</h1>
-            <ul>
+        <div id="recipeSavedPageContainer">
+            <div id="recipeSavedContentContainer">
+                <h1 id="savedRecipesTitle">Saved Recipes</h1>
                 {parsedRecipes.map((recipe, index) => (
-                    <li key={index}>
-                    <RecipeDetails recipe={recipe} />
-                    </li>
+                    <div className="savedRecipeBox" key={index}>
+                        <RecipeDetails recipe={recipe} />
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }
