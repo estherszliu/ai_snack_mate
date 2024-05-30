@@ -3,7 +3,7 @@ import "../styles/RecipePage.css";
 import { useState, useContext } from "react";
 import { RecipeGlobalDataContext, RecipeGlobalDispatchContext } from "../contexts/recipeDataContext";
 import RecipeDetails from  "../components/recipeTemplate";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export default function RecipePage(){
 
@@ -13,7 +13,7 @@ export default function RecipePage(){
     const [maxIngredients, setMaxIngredients] = useState("");
     const [maxSteps, setMaxSteps] = useState("");
     const [generatedRecipe, setGeneratedRecipe] = useState(null);
-    const recipes = useContext(RecipeGlobalDataContext);
+    // const recipes = useContext(RecipeGlobalDataContext);
     const addRecipe = useContext(RecipeGlobalDispatchContext)
 
 
