@@ -102,13 +102,13 @@ export default function RecipePage(){
                     value={recipeName}
                     onChange={(e) => setRecipeName(e.target.value)}
                 />
-                <div className="inputGroup">Maximum of ingredients</div>
+                <div className="inputGroup">Maximum number of ingredients</div>
                 <input 
                     id="ingredientNumInput"
                     value={maxIngredients}
                     onChange={(e) => setMaxIngredients(e.target.value)}
                 />
-                <div className="inputGroup">Maximum of step </div>
+                <div className="inputGroup">Maximum number of steps </div>
                 <input 
                     id="stepsNumInput"
                     value={maxSteps}
