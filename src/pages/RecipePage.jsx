@@ -1,7 +1,7 @@
 import axios from "axios";
 import "../styles/RecipePage.css";
 import { useState, useContext } from "react";
-import { RecipeGlobalDataContext, RecipeGlobalDispatchContext } from "../contexts/recipeDataContext";
+import { RecipeGlobalDispatchContext } from "../contexts/recipeDataContext";
 import RecipeDetails from  "../components/recipeTemplate";
 import { useSearchParams } from "react-router-dom";
 
