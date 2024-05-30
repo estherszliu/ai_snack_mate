@@ -3,6 +3,8 @@ import "../styles/RecipePage.css";
 import { useState, useContext } from "react";
 import { RecipeGlobalDataContext, RecipeGlobalDispatchContext } from "../contexts/recipeDataContext";
 import RecipeDetails from  "../components/recipeTemplate";
+import { useLocation, useSearchParams } from "react-router-dom";
+
 
 const mockApiResponse = {
     recipe_name: "Chicken Thai Green Curry",
@@ -49,7 +51,9 @@ const mockApiResponse = {
 
 export default function RecipePage(){
 
-    const [recipeName, setRecipeName] = useState("");
+    const [searchParams] = useSearchParams();
+    const initialRecipeName = searchParams.get("name") || "";
+    const [recipeName, setRecipeName] = useState(initialRecipeName);
     const [maxIngredients, setMaxIngredients] = useState("");
     const [maxSteps, setMaxSteps] = useState("");
     const [generatedRecipe, setGeneratedRecipe] = useState(null);
@@ -58,7 +62,7 @@ export default function RecipePage(){
 
 
     const handleGenerateRecipe = async () => {
-        const prompt = `Generate a JSON formatted recipe for \${recipeName} with maximum \${maxIngredients} ingredients and \${maxSteps} steps, including detailed nutritional information per serving and per 100g. The JSON should have the following fields and structure:
+        const prompt = `Generate a JSON formatted recipe for ${recipeName} with maximum \${maxIngredients} ingredients and ${maxSteps} steps, including detailed nutritional information per serving and per 100g. The JSON should have the following fields and structure:
 
         {
             "recipe_name": "<Recipe Name>",
