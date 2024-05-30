@@ -94,6 +94,7 @@ export default function RecipePage(){
 
     return(
         <div id="recipePageContainer">
+            <h1 id="recipeTitle">Generate Recipe</h1>
             <div id="recipeContentContainer">
                 <div className="inputGroup">Recipe name</div>
                 <input 

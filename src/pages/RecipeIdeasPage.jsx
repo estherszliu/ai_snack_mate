@@ -45,6 +45,7 @@ export default function RecipeIdeasPage() {
 
     return (
         <div id="recipeIdeasPageContainer">
+            <h1 id="recipeIdeaTitle">Generate Recipe Ideas</h1>
             <div id="recipeIdeasContainer">
                 <div className="inputIdeas">Ingredients or name in the recipe</div>
                 <input 
@@ -55,7 +56,7 @@ export default function RecipeIdeasPage() {
                 {recipeIdeas.length > 0 && (
                     <ul>
                         {recipeIdeas.map((idea, index) => (
-                            <li key={index} onClick={() => handleRecipeClick(idea.recipe_name)}>
+                            <li class="ideaList" key={index} onClick={() => handleRecipeClick(idea.recipe_name)}>
                                 {idea.recipe_name}
                             </li>
                         ))}
