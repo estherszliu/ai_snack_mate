@@ -5,50 +5,6 @@ import { RecipeGlobalDataContext, RecipeGlobalDispatchContext } from "../context
 import RecipeDetails from  "../components/recipeTemplate";
 import { useLocation, useSearchParams } from "react-router-dom";
 
-
-const mockApiResponse = {
-    recipe_name: "Chicken Thai Green Curry",
-    serves: 4,
-    serving_size: "400g",
-    ingredients: [
-        { name: "Chicken Thigh", quantity: "400g" },
-        { name: "Chickpeas", quantity: "200g" },
-        { name: "Coconut Milk", quantity: "400ml" },
-        { name: "Broccolini", quantity: "200g" },
-        { name: "Green Curry Paste", quantity: "50g" },
-        { name: "Fish Sauce", quantity: "2 tbsp" },
-        { name: "Brown Sugar", quantity: "1 tbsp" },
-        { name: "Lime Leaves", quantity: "3" }
-    ],
-    steps: [
-        { number: 1, step: "Cut the chicken thighs into small pieces and fry in a large pan over medium heat until cooked through." },
-        { number: 2, step: "Add the green curry paste to the pan and cook for 1-2 minutes until fragrant." },
-        { number: 3, step: "Pour in the coconut milk, stir well to combine, and bring to a simmer." },
-        { number: 4, step: "Add the chickpeas, broccolini, fish sauce, brown sugar, and lime leaves. Stir to combine." },
-        { number: 5, step: "Simmer for 10-15 minutes until the vegetables are tender and the flavors are well combined." },
-        { number: 6, step: "Remove the lime leaves and serve the curry hot with steamed rice." }
-    ],
-    nutrition: {
-        per_serving: {
-            calories: 450,
-            protein: "25g",
-            fat: "30g",
-            carbohydrates: "20g",
-            fiber: "5g",
-            sugar: "4g"
-        },
-        per_100g: {
-            calories: 112,
-            protein: "6.3g",
-            fat: "7.5g",
-            carbohydrates: "5g",
-            fiber: "1.3g",
-            sugar: "1g"
-        }
-    }
-};
-
-
 export default function RecipePage(){
 
     const [searchParams] = useSearchParams();
@@ -95,18 +51,7 @@ export default function RecipePage(){
                 }
             }
         }`;      
-        try {
-            // Simulating an API response using mock data
-            // const response = {
-            //     data: {
-            //         choices: [
-            //             {
-            //                 text: JSON.stringify(mockApiResponse)
-            //             }
-            //         ]
-            //     }
-            // };
-            
+        try {           
             const response = await axios.post(
                 "https://api.openai.com/v1/chat/completions",
                 {
