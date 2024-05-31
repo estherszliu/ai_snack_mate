@@ -1,10 +1,11 @@
-
+import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import "../styles/RecipePage.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { RecipeGlobalDataContext, RecipeGlobalDispatchContext } from "../contexts/recipeDataContext";
 import RecipeDetails from  "../components/recipeTemplate";
 import { useSearchParams } from "react-router-dom";
+import { updateRecipesWithUUID } from "../functions/updateRecipesWithUUID";
 
 export default function RecipePage(){
 
@@ -16,16 +17,19 @@ export default function RecipePage(){
     const [generatedRecipe, setGeneratedRecipe] = useState(null);
     const [loading, setLoading] = useState(false);
     const [saveMessage, setSaveMessage] = useState("");
-    // const [editableRecipeName, setEditableRecipeName] = useState("");
     const addRecipe = useContext(RecipeGlobalDispatchContext);
     const recipes = useContext(RecipeGlobalDataContext);
 
+    // Call the function to update the recipes when the component mounts
+    useEffect(() => {
+        updateRecipesWithUUID();
+    }, []);
 
     const handleGenerateRecipe = async () => {
         const prompt = `Generate a JSON formatted recipe for ${recipeName} with maximum \${maxIngredients} ingredients and ${maxSteps} steps, including detailed nutritional information per serving and per 100g. The JSON should have the following fields and structure:
 
         {   
-           
+            "recipe_id": "<UUID>",
             "recipe_name": "<Recipe Name>",
             "serves": <Number of Servings>,
             "serving_size": "<Serving Size>",
@@ -77,13 +81,10 @@ export default function RecipePage(){
             // Simulating async behavior
             await new Promise(resolve => setTimeout(resolve, 1000));
     
-            // Parsing the mock response text
-            const generatedRecipe = response.data.choices[0].message.content;
-            setGeneratedRecipe(JSON.parse(generatedRecipe));
-            // setEditableRecipeName(generatedRecipe.recipe_name);
-
-            // Use context to update the global recipe list
-            // addRecipe(prevRecipes => [...prevRecipes, generatedRecipe]);
+           
+            const generatedRecipe = JSON.parse(response.data.choices[0].message.content);
+            generatedRecipe.recipe_id = uuidv4();
+            setGeneratedRecipe(generatedRecipe);
             
         } catch (error) {
             console.error("Error generating recipe:", error);
@@ -95,26 +96,12 @@ export default function RecipePage(){
     const handelSaveRecipe =() => {
         if (generatedRecipe) {
 
-            // const recipeNameToSave = editableRecipeName ? editableRecipeName.trim() : generatedRecipe.recipe_name;
-
-            // const recipeExists = recipes.some(
-            //     (recipe) => recipe.recipe_name === recipeNameToSave
-            // );
-
-            // if (recipeExists) {
-            //     setSaveMessage("Recipe with the same name already exists! Try to change the recipe name then save again if you wish to save it!");
-            // } else{
-            //     const newRecipe = { ...generatedRecipe, recipe_name: recipeNameToSave };
-            //     addRecipe(prevRecipes => [...prevRecipes, newRecipe]);
-            //     setSaveMessage("Recipe saved successfully!");
-            // }
-
             const recipeExists = recipes.some(
-                (recipe) => recipe.recipe_name === generatedRecipe.recipe_name
+                (recipe) => recipe.recipe_id === generatedRecipe.recipe_id
             );
             
             if (recipeExists) {
-                setSaveMessage("Recipe with the same name already exists!")
+                setSaveMessage("Recipe already exists!")
             } else {
                 addRecipe(prevRecipes => [...prevRecipes, generatedRecipe]);
                 setSaveMessage("Recipe saved successfully!");
