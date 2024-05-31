@@ -1,7 +1,8 @@
+
 import axios from "axios";
 import "../styles/RecipePage.css";
 import { useState, useContext } from "react";
-import { RecipeGlobalDispatchContext } from "../contexts/recipeDataContext";
+import { RecipeGlobalDataContext, RecipeGlobalDispatchContext } from "../contexts/recipeDataContext";
 import RecipeDetails from  "../components/recipeTemplate";
 import { useSearchParams } from "react-router-dom";
 
@@ -13,14 +14,18 @@ export default function RecipePage(){
     const [maxIngredients, setMaxIngredients] = useState("");
     const [maxSteps, setMaxSteps] = useState("");
     const [generatedRecipe, setGeneratedRecipe] = useState(null);
-    // const recipes = useContext(RecipeGlobalDataContext);
-    const addRecipe = useContext(RecipeGlobalDispatchContext)
+    const [loading, setLoading] = useState(false);
+    const [saveMessage, setSaveMessage] = useState("");
+    // const [editableRecipeName, setEditableRecipeName] = useState("");
+    const addRecipe = useContext(RecipeGlobalDispatchContext);
+    const recipes = useContext(RecipeGlobalDataContext);
 
 
     const handleGenerateRecipe = async () => {
         const prompt = `Generate a JSON formatted recipe for ${recipeName} with maximum \${maxIngredients} ingredients and ${maxSteps} steps, including detailed nutritional information per serving and per 100g. The JSON should have the following fields and structure:
 
-        {
+        {   
+           
             "recipe_name": "<Recipe Name>",
             "serves": <Number of Servings>,
             "serving_size": "<Serving Size>",
@@ -51,7 +56,8 @@ export default function RecipePage(){
                 }
             }
         }`;      
-        try {           
+        try { 
+            setLoading(true);
             const response = await axios.post(
                 "https://api.openai.com/v1/chat/completions",
                 {
@@ -74,19 +80,48 @@ export default function RecipePage(){
             // Parsing the mock response text
             const generatedRecipe = response.data.choices[0].message.content;
             setGeneratedRecipe(JSON.parse(generatedRecipe));
+            // setEditableRecipeName(generatedRecipe.recipe_name);
 
             // Use context to update the global recipe list
             // addRecipe(prevRecipes => [...prevRecipes, generatedRecipe]);
             
         } catch (error) {
             console.error("Error generating recipe:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
     const handelSaveRecipe =() => {
         if (generatedRecipe) {
-            addRecipe(prevRecipes => [...prevRecipes, generatedRecipe]);
-        } else {
+
+            // const recipeNameToSave = editableRecipeName ? editableRecipeName.trim() : generatedRecipe.recipe_name;
+
+            // const recipeExists = recipes.some(
+            //     (recipe) => recipe.recipe_name === recipeNameToSave
+            // );
+
+            // if (recipeExists) {
+            //     setSaveMessage("Recipe with the same name already exists! Try to change the recipe name then save again if you wish to save it!");
+            // } else{
+            //     const newRecipe = { ...generatedRecipe, recipe_name: recipeNameToSave };
+            //     addRecipe(prevRecipes => [...prevRecipes, newRecipe]);
+            //     setSaveMessage("Recipe saved successfully!");
+            // }
+
+            const recipeExists = recipes.some(
+                (recipe) => recipe.recipe_name === generatedRecipe.recipe_name
+            );
+            
+            if (recipeExists) {
+                setSaveMessage("Recipe with the same name already exists!")
+            } else {
+                addRecipe(prevRecipes => [...prevRecipes, generatedRecipe]);
+                setSaveMessage("Recipe saved successfully!");
+            }
+
+            setTimeout(() => setSaveMessage(""), 3000);
+        } else { 
             console.log("No recipe generated to save!");
         }
     };
@@ -114,10 +149,13 @@ export default function RecipePage(){
                     value={maxSteps}
                     onChange={(e) => setMaxSteps(e.target.value)}
                 />
-                <button id="generatbnt" onClick={handleGenerateRecipe}> Generate Recipe </button>
-                {generatedRecipe && (
-                    <button onClick={handelSaveRecipe}>Save Recipe</button>
+                <button id="generatbnt" onClick={handleGenerateRecipe} disabled={loading}>
+                    {loading ? "Generating..." : "Generate Recipe"} 
+                </button>
+                {generatedRecipe && ( <button onClick={handelSaveRecipe}>Save Recipe</button>
                 )}
+                {loading && <div className="loading"> Loading...</div>}
+                {saveMessage && <div className="saveMessage">{saveMessage}</div>}
                 {generatedRecipe && <RecipeDetails recipe={generatedRecipe} />}
             </div>
         </div>
