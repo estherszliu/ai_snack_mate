@@ -63,7 +63,7 @@
 }
 
 /* Media Queries for Mobile Screens */
-@media (max-width: 768px) {
+@media (max-width: 840px) {
     #recipeIdeaTitle {
         font-size: 28px;
     }

@@ -126,7 +126,7 @@ ul, ol {
 }
 
 /* Media Queries for Mobile Screens  */
-@media (max-width: 768px) {
+@media (max-width: 840px) {
     #recipeTitle {
         font-size: 28px;
     }
