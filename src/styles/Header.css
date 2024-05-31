@@ -5,7 +5,10 @@ header {
     min-height: 80px;
     background-color: #FF7043;
     justify-content: space-between;
-    align-items: center;
+    align-items: center;  
+    width: 100%;
+    box-sizing:border-box;
+    flex-wrap: wrap;
 }
 
 #headerBranding {
@@ -19,6 +22,7 @@ header {
 nav{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 nav a {
     margin: 0 15px;
@@ -28,32 +32,57 @@ nav a {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 nav a:hover {
     background-color: white;
     color: #FF7043;
     padding: 5px 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-nav a:hover {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+.hamburger {
+    display: none;
+    font-size: 24px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 /* Media Queries for Mobile Screens */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         height: auto;
-        padding: 10px;
+        padding: 10px 20px;
     }
     #headerBranding{
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        font-size: 20px;
+    }
+
+    nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    nav.open {
+        display: flex;
     }
 
     nav a{
         margin: 5px;
         width: 100%;
+        font-size: 16px;
+        text-align: center;
     }
+
+    .hamburger {
+        display: block;
+    }
+
 }

@@ -23,7 +23,7 @@ export default function AboutPage() {
                 </ul>
                 
                 <h2 className="subTitle">Meet the Team</h2>
-                <p>AI Snack Mate is the brainchild of [Your Name], a professional chef turned tech entrepreneur, alongside a vibrant team of software developers, designers, and culinary experts. Each team member brings a unique set of skills and a shared passion for revolutionizing the way we cook and eat.</p>
+                <p>AI Snack Mate is the brainchild of Esther, a professional chef turned tech entrepreneur, alongside a vibrant team of software developers, designers, and culinary experts. Each team member brings a unique set of skills and a shared passion for revolutionizing the way we cook and eat.</p>
                 
                 <h2 className="subTitle">Join Our Community</h2>
                 <p>We invite you to join our community of food lovers and home cooks who are discovering the joy of cooking with AI Snack Mate. Share your creations, get tips from other users, and never run out of recipe ideas again.</p>
