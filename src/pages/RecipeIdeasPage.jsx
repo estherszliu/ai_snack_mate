@@ -47,7 +47,7 @@ export default function RecipeIdeasPage() {
         <div id="recipeIdeasPageContainer">
             <h1 id="recipeIdeaTitle">Generate Recipe Ideas</h1>
             <div id="recipeIdeasContainer">
-                <div className="inputIdeas">IRecipe ingredients or themes</div>
+                <div className="inputIdeas">Recipe ingredients or themes</div>
                 <input 
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}

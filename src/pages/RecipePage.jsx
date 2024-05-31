@@ -103,8 +103,6 @@ export default function RecipePage(){
             if (recipeExists) {
                 setSaveMessage("Recipe already exists!")
             } else {
-                // addRecipe(prevRecipes => [...prevRecipes, generatedRecipe]);
-
                 const updateRecipes = [...recipes, generatedRecipe];
                 addRecipe(updateRecipes);
                 localStorage.setItem("recipes", JSON.stringify(updateRecipes));

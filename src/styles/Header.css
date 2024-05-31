@@ -16,6 +16,10 @@ header {
     font-family: 'Pacifico', cursive;
 }
 
+nav{
+    display: flex;
+    align-items: center;
+}
 nav a {
     margin: 0 15px;
     color: white;
@@ -34,4 +38,22 @@ nav a:hover {
 
 nav a:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Media Queries for Mobile Screens */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        padding: 10px;
+    }
+    #headerBranding{
+        margin-bottom: 10px;
+    }
+
+    nav a{
+        margin: 5px;
+        width: 100%;
+    }
 }
