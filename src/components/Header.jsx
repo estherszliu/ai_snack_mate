@@ -11,7 +11,7 @@ export default function Header() {
 
     return (
         <header>
-            <div id="headerBranding">AI Snack Mate</div>
+            <div id="headerBranding">Snack Mate</div>
             <button className="hamburger" onClick={toggleMobileMenu}>
                 ☰
             </button>

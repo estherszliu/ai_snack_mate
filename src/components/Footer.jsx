@@ -4,7 +4,7 @@ export default function Footer(){
 
     return(
         <footer>
-            <h6>Copyright 2024 AI Snack Mate</h6>
+            <h6>Copyright 2024 Snack Mate</h6>
         </footer>
     )
 }
